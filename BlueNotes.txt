@@ -1,0 +1,11 @@
+Blue App Documentation - 23rd October, 2024
+
+Started with installing Stack for navigation (npm i @react-navigation/stack)
+Gesture Handler too (npm i react-native-gesture-handler)
+expo font (npx expo install expo-font)
+native stack (npm i @react-navigation/native-stack)
+drawer nav (npm i @react-navigation/drawer) - movie finder
+bottom tab (npm i @react-navigation/bottom-tabs) - todo app
+date picker (npm i react-native-modal-datetime-picker) - todo app
+Async Storage (npm i @react-native-async-storage/async-storage)
+Top Tab navs (npm i @react-navigation/material-top-tabs) - Movie finder
