@@ -22,29 +22,81 @@ function Registration() {
   const navigation = useNavigation(); // Hook to enable navigation between screens
 
   // Function to handle user registration using Supabase
+  // async function signUpNewUser() {
+  //   // Ensure that passwords match before proceeding
+  //   if (password !== confirmPassword) {
+  //     Alert.alert("Passwords do not match");
+  //     return;
+  //   }
+
+  //   // Attempt to register the user via Supabase
+  //   const { data, error } = await supabase.auth.signUp({
+  //     email, // Email from the input
+  //     password, // Password from the input
+  //   });
+
+  //   if (error) {
+  //     // Handle registration error
+  //     Alert.alert("Error during Registration:", error.message);
+  //   } else {
+  //     // If successful, notify the user to check their email
+  //     Alert.alert(
+  //       "Registration Successful! Please check your email for verification"
+  //     );
+  //     navigation.navigate("Login"); // Navigate to the login screen after successful registration
+  //   }
+  // }
+
   async function signUpNewUser() {
-    // Ensure that passwords match before proceeding
-    if (password !== confirmPassword) {
-      Alert.alert("Passwords do not match");
-      return;
+    try {
+      // Check if passwords match
+      if (password !== confirmPassword) {
+        Alert.alert("Passwords do not match");
+        return;
+      }
+    
+      // Register the user using Supabase Auth (this handles email, password, etc.)
+      const { data, error: signUpError } = await supabase.auth.signUp({
+        email,
+        password,
+      });
+    
+      if (signUpError) {
+        // If there is an error during sign-up, display it
+        throw new Error(signUpError.message);
+      }
+    
+      // If registration is successful, insert additional data into your custom 'users' table
+      if (data && data.user) {
+        const { error: userInsertError } = await supabase
+          .from('users')  // This refers to your custom 'users' table
+          .insert([{ 
+            id: data.user.id,       // Use the auth user's ID
+            username,               // The username you collected
+            email                   // The email from the sign-up form
+          }]);
+    
+        if (userInsertError) {
+          // Handle error when saving additional user data
+          throw new Error(userInsertError.message);
+        }
+    
+        // Success: Notify the user and navigate to login
+        Alert.alert(
+          "Registration Successful! Please check your email for verification"
+        );
+        navigation.navigate("Login");
+    
+      } else {
+        throw new Error("Unable to complete registration");
+      }
+    
+    } catch (error) {
+      // Catch and handle any errors
+      Alert.alert("Error:", error.message);
     }
-
-    // Attempt to register the user via Supabase
-    const { data, error } = await supabase.auth.signUp({
-      email, // Email from the input
-      password, // Password from the input
-    });
-
-    if (error) {
-      // Handle registration error
-      Alert.alert("Error during Registration:", error.message);
-    } else {
-      // If successful, notify the user to check their email
-      Alert.alert(
-        "Registration Successful! Please check your email for verification"
-      );
-      navigation.navigate("Login"); // Navigate to the login screen after successful registration
-    }
+    
+    
   }
 
   return (
