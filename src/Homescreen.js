@@ -6,12 +6,17 @@ import homestyles from "./styles/homeStyles"; // Import the home screen styles
 // List of apps that will be displayed in the home screen
 const apps = [
   { id: "1", name: "Todo App", route: "TodoNav" }, // Todo App route
-  { id: "2", name: "Movie Finder", route: "MovieFinderNav" }, // Movie Finder App route
+  { id: "2", name: "Movie Finder", route: "MovieFinderNav" },// Movie Finder App route
+  { id: "3", name: "DardMode", route: "DarkMode" },// Movie Finder App route
   
 ];
 
 const HomeScreen = () => {
   const navigation = useNavigation(); // Navigation to handle app redirection
+  
+
+
+
 
   // Function to handle the navigation when a user selects an app
   const openApp = (route) => {

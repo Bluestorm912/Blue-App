@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, Image, ScrollView, StyleSheet, SafeAreaView } from 'react-native';
+import { View, Text, TextInput, Button, Image, ScrollView, StyleSheet, SafeAreaView, RefreshControl } from 'react-native';
 
 // Your OMDb API key
 const apiKey = '58af348';
@@ -8,6 +8,7 @@ const MovieScreen = ({ navigation }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);
+  const [refreshing, setRefreshing] = useState(false);
 
   // Fetch default movies when component loads
   useEffect(() => {
@@ -61,8 +62,17 @@ const MovieScreen = ({ navigation }) => {
       });
   };
 
+  // Funtion to handle pull-to-refresh action
+  const handleRefresh = () => {
+    setRefreshing(true); // set refreshiing state to true while fetching new data
+    fetchDefaultMovies(); //Fetch the default list of movies again
+    setRefreshing(false); //Reset refreshing state once data is fetched
+  };
+
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container}
+    refreshControl={<RefreshControl refreshing={refreshing} onRefresh={handleRefresh}/>} 
+    >
       <SafeAreaView>
         <Text style={styles.title}>Movie Finder</Text>
         <TextInput

@@ -8,7 +8,9 @@ import TodoNav from "./TodoBottomNav";
 import HomeScreen from "../Homescreen";
 import MovieFinderNav from "./MovieFinderNav";
 
+
 import { Text } from "react-native";
+import DarkMode from "../DarkMode";
 
 const Stack = createNativeStackNavigator();
 
@@ -43,8 +45,14 @@ const appNavigation = () => {
             component={HomeScreen}
             options={{ headerShown: false }}
           />
+            <Stack.Screen
+            name="DarkMode"
+            component={DarkMode}
+            options={{ headerShown: false }}
+          />
         
-
+        
+      
              <Stack.Screen
             name="TodoNav"
             component={TodoNav}
