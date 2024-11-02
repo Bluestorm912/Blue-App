@@ -10,6 +10,7 @@ import MovieFinderNav from "./MovieFinderNav";
 
 import { Text } from "react-native";
 import DarkMode from "../DarkMode";
+import DishNav from "./DishNav";
 
 const Stack = createNativeStackNavigator();
 
@@ -58,6 +59,11 @@ const appNavigation = () => {
           <Stack.Screen
             name="MovieFinderNav"
             component={MovieFinderNav}
+            options={{ headerShown: false }}
+          />
+            <Stack.Screen
+            name="DishNav"
+            component={DishNav}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
