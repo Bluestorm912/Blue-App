@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, TextInput, Button, Image, ScrollView, StyleSheet, SafeAreaView, RefreshControl } from 'react-native';
+import { ThemeContext } from '../models/ThemeContext'; // Import ThemeContext for dark mode support
 
 // Your OMDb API key
 const apiKey = '58af348';
@@ -9,6 +10,9 @@ const MovieScreen = ({ navigation }) => {
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);
   const [refreshing, setRefreshing] = useState(false);
+
+  // Access the current theme mode (dark/light) from ThemeContext
+  const { isDarkMode } = useContext(ThemeContext);
 
   // Fetch default movies when component loads
   useEffect(() => {
@@ -70,7 +74,7 @@ const MovieScreen = ({ navigation }) => {
   };
 
   return (
-    <ScrollView style={styles.container}
+    <ScrollView style={[styles.container, { backgroundColor: isDarkMode ? '#121212' : '#FFF' }]}
     refreshControl={<RefreshControl refreshing={refreshing} onRefresh={handleRefresh}/>} 
     >
       <SafeAreaView>
