@@ -1,29 +1,32 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack"; // Import stack navigator for screen-to-screen navigation
-import Login from "../auth/Login"; // Import the Loginn screen component
-import Registration from "../auth/Registration"; // Import the Registration screen component
+// Import stack navigator for managing navigation between screens
+import { createNativeStackNavigator } from "@react-navigation/native-stack"; 
 
+// Import screen components for login and registration
+import Login from "../auth/Login"; // Login screen component
+import Registration from "../auth/Registration"; // Registration screen component
 
-// Create a Stack navigator instance for managing navigation within this component
+// Create a Stack navigator instance for screen-to-screen navigation within this component
 const Stack = createNativeStackNavigator();
 
 function Regs() {
-  // Return the stack navigator with each screen defined
+  // Define the stack navigator with two screens: Login and Registration
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Login" // Route name for the Signin screen
-        component={Login} // Specify the component to render for this screen
-        options={{ headerShown: false }} // Hide the header to make it full-screen
+        name="Login" // Route name for the Login screen
+        component={Login} // Component to render for the Login screen
+        options={{ headerShown: false }} // Hide the header for a full-screen appearance
       />
 
       <Stack.Screen
         name="Registration" // Route name for the Registration screen
-        component={Registration} // Specify the component to render for this screen
-        options={{ headerShown: false }} // Hide the header to make it full-screen
+        component={Registration} // Component to render for the Registration screen
+        options={{ headerShown: false }} // Hide the header for a full-screen appearance
       />
-
+      
     </Stack.Navigator>
   );
 }
 
-export default Regs; // Export the Regs component as the default export
+// Export the Regs component as the default export so it can be imported in other files
+export default Regs;

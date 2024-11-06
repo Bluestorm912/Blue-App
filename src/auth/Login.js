@@ -1,3 +1,4 @@
+// Importing necessary libraries and components
 import React, { useState, useEffect } from "react";
 import {
   View,
@@ -8,65 +9,66 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { LinearGradient } from "expo-linear-gradient"; // For gradient background
-import * as Font from "expo-font"; // For custom font loading
-import { supabase } from "../../api/supabaseClient"; // Supabase for authentication
-import authstyles from "../styles/authstyles"; // Import external styles from authstyles.js
+import { useNavigation } from "@react-navigation/native"; // Hook for navigation
+import { LinearGradient } from "expo-linear-gradient"; // Linear gradient background
+import * as Font from "expo-font"; // For loading custom fonts
+import { supabase } from "../../api/supabaseClient"; // Supabase client for authentication
+import authstyles from "../styles/authstyles"; // External stylesheet for styling
+
 
 function SignIn() {
-  // State variables for email, password, splash screen visibility, and font loading
-  const [email, setEmail] = useState(""); // Email input state
-  const [password, setPassword] = useState(""); // Password input state
-  const [showSplash, setShowSplash] = useState(true); // Show splash screen initially
+  // State variables for user inputs and status indicators
+  const [email, setEmail] = useState(""); // Holds the email input value
+  const [password, setPassword] = useState(""); // Holds the password input value
+  const [fontsLoaded, setFontsLoaded] = useState(false); // Tracks font load status
 
-  const navigation = useNavigation(); // Navigation hook to navigate between screens
+  const navigation = useNavigation(); // Navigation hook to enable screen transitions
 
-  // Async function to load fonts
-  const loadFonts = async () => {
-    await Font.loadAsync({
-      Montserrat: require("../../assets/font/Montserrat/static/Montserrat-Bold.ttf"), // Load Montserrat font
-    });
-  };
+ // Async function to load custom fonts
+ const loadFonts = async () => {
+  await Font.loadAsync({
+    Montserrat: require("../../assets/font/Montserrat/static/Montserrat-Bold.ttf"), // Montserrat font path
+  });
+};
 
-  const [fontsLoaded, setFontsLoaded] = useState(false); // Font load status
+// Load fonts only once when component mounts
+useEffect(() => {
+  loadFonts().then(() => setFontsLoaded(true)); // Sets fontsLoaded to true after loading
+}, []);
 
-  // Load fonts once when the component mounts
-  useEffect(() => {
-    loadFonts().then(() => setFontsLoaded(true)); // Set fontsLoaded to true after fonts are loaded
-  }, []);
-
-  // If fonts are not loaded yet, return null to avoid rendering incomplete UI
-  if (!fontsLoaded) {
-    return null;
-  }
+// If fonts haven't loaded yet, return null to avoid rendering until ready
+if (!fontsLoaded) {
+  return null;
+}
 
 //   // Show splash screen first, and hide it after the timer or event
 //   if (showSplash) {
 //     return <SplashScreen onFinish={() => setShowSplash(false)} />; // Hide splash screen after it finishes
 //   }
 
-  // Function to handle user sign-in with Supabase
+  // Function to handle user sign-in with Supabase authentication
   async function signInWithEmail() {
     const { error } = await supabase.auth.signInWithPassword({
-      email, // Email from the input
-      password, // Password from the input
+      email, // Email state passed to Supabase
+      password, // Password state passed to Supabase
     });
 
-    // Handle login error
+    // Handle errors or successful login
     if (error) {
-      Alert.alert("Login Error:", error.message); // Show error alert
+      Alert.alert("Login Error:", error.message); // Display error message in an alert
     } else {
-      Alert.alert("Login Successful"); // Show success alert
-      navigation.navigate("HomeScreen"); // Navigate to the Todo screen on successful login
+      Alert.alert("Login Successful"); // Display success message
+      navigation.navigate("MainScreen"); // Navigate to MainScreen on success
     }
   }
 
   return (
-    <LinearGradient colors={["#001F3F", "#003D5B"]} style={authstyles.gradient}>
-      {/* Use LinearGradient for background and apply styles */}
-      <SafeAreaView style={authstyles.container}>
-        {/* SafeAreaView to avoid overlaps with the device's status bar */}
+// Linear gradient background
+<LinearGradient colors={["#001F3F", "#003D5B"]} style={authstyles.gradient}>
+{/* Dark blue gradient background from #001F3F to #003D5B */}
+
+<SafeAreaView style={authstyles.container}>
+  {/* SafeAreaView avoids overlap with the device's status bar */}
         
         {/* Title for the Sign In screen */}
         <Text style={authstyles.title}>LOG IN</Text>
@@ -96,13 +98,13 @@ function SignIn() {
           <Text style={authstyles.buttonText}>Get Started</Text>
         </TouchableOpacity>
 
-        {/* Sign Up prompt */}
-        <Text style={authstyles.signUpPrompt}>
-          Don't have an account?{" "}
-          <TouchableOpacity onPress={() => navigation.navigate("Registration")}>
-            <Text style={authstyles.signUpText}>Sign Up</Text>
-          </TouchableOpacity>
-        </Text>
+         {/* Sign Up prompt for users without an account */}
+      <Text style={authstyles.signUpPrompt}>
+        Don't have an account?{" "}
+        <TouchableOpacity onPress={() => navigation.navigate("Registration")}>
+          <Text style={authstyles.signUpText}>Sign Up</Text> 
+        </TouchableOpacity>
+      </Text>
 
     
       </SafeAreaView>
@@ -111,3 +113,8 @@ function SignIn() {
 }
 
 export default SignIn;
+
+
+
+
+
