@@ -8,7 +8,8 @@ import { ThemeContext } from './models/ThemeContext'; // Import ThemeContext for
 const apps = [
   { id: "1", name: "Todo App", route: "TodoNav" }, // Todo App route
   { id: "2", name: "Movie Finder", route: "MovieFinderNav" },// Movie Finder App route
-  { id: "3", name: "DardMode", route: "DarkMode" },// Movie Finder App route
+  { id: "3", name: "DardMode", route: "DarkMode" },// DarkMode App route
+  { id: "4", name: "Blue Recipe", route: "DishNav" },// Food Recipe App route
   
 ];
 

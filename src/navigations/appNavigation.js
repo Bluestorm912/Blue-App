@@ -9,6 +9,7 @@ import TodoNav from "./TodoBottomNav";
 import HomeScreen from "../Homescreen";
 import MovieFinderNav from "./MovieFinderNav";
 import DarkMode from "../DarkMode";
+import DishNav from "./DishNav";
 
 const Stack = createNativeStackNavigator();
 
@@ -31,33 +32,39 @@ const AppNavigation = () => {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Reg"
-          component={Regs}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="HomeScreen"
-          component={HomeScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="DarkMode"
-          component={DarkMode}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="TodoNav"
-          component={TodoNav}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="MovieFinderNav"
-          component={MovieFinderNav}
-          options={{ headerShown: false }}
-        />
-      </Stack.Navigator>
+
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Reg"
+            component={Regs}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="HomeScreen"
+            component={HomeScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="DarkMode"
+            component={DarkMode}
+            options={{ headerShown: false }}
+          />
+
+          <Stack.Screen
+            name="TodoNav"
+            component={TodoNav}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="MovieFinderNav"
+            component={MovieFinderNav}
+            options={{ headerShown: false }}
+          />
+
+        </Stack.Navigator>
+      </NavigationContainer>
+
     </GestureHandlerRootView>
   );
 };
