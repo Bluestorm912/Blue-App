@@ -1,20 +1,19 @@
+// src/navigations/appNavigation.js
 import React, { useState, useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as Font from "expo-font";
+import { Text } from "react-native";
 import Regs from "./Reg";
 import TodoNav from "./TodoBottomNav";
 import HomeScreen from "../Homescreen";
 import MovieFinderNav from "./MovieFinderNav";
-
-import { Text } from "react-native";
 import DarkMode from "../DarkMode";
 import DishNav from "./DishNav";
 
 const Stack = createNativeStackNavigator();
 
-const appNavigation = () => {
+const AppNavigation = () => {
   const [fontsLoaded, setFontsLoaded] = useState(false);
 
   const loadFonts = async () => {
@@ -33,6 +32,7 @@ const appNavigation = () => {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
+
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
@@ -61,15 +61,12 @@ const appNavigation = () => {
             component={MovieFinderNav}
             options={{ headerShown: false }}
           />
-            <Stack.Screen
-            name="DishNav"
-            component={DishNav}
-            options={{ headerShown: false }}
-          />
+
         </Stack.Navigator>
       </NavigationContainer>
+
     </GestureHandlerRootView>
   );
 };
 
-export default appNavigation;
+export default AppNavigation;

@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, Switch } from 'react-native'
 import React, { useContext } from 'react';
-import { ThemeContext } from './models/ThemeContext'
+import { ThemeContext } from './models/ThemeContext';
+
 
 const DarkMode = () => {
   const { isDarkMode, toggleTheme } = useContext(ThemeContext); // Use ThemeContext

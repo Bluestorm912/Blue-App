@@ -1,21 +1,25 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { ThemeContext } from '../models/ThemeContext'; // Import ThemeContext for dark mode support
 
 const DetailScreen = ({ route }) => {
   // Destructure movieDetails from route.params, with a fallback
   const { movieDetails } = route.params || {};
 
+  // Access the current theme mode (dark/light) from ThemeContext
+  const { isDarkMode } = useContext(ThemeContext);
+
   if (!movieDetails) {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, { backgroundColor: isDarkMode ? '#121212' : '#FFF' }]}>
         <Text style={styles.errorText}>No movie details available</Text>
       </View>
     );
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { backgroundColor: isDarkMode ? '#121212' : '#FFF' }]}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
         {/* Movie Poster */}
         <Image

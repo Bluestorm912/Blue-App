@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { StyleSheet, SafeAreaView, View, TouchableOpacity, Text } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import TodoInput from "../components/todoComponents/TodoInputs";
@@ -6,6 +6,7 @@ import TodoList from "../components/todoComponents/TodoList";
 import { scheduleTodoNotification } from "../components/todoComponents/NotificationHelper";
 import Logout from "../components/Logout";
 import { useNavigation } from "@react-navigation/native";
+import { ThemeContext } from '../models/ThemeContext'; // Import ThemeContext for dark mode support
 
 
 export default function TodoScreen() {
@@ -14,6 +15,9 @@ export default function TodoScreen() {
   const [newTodo, setNewTodo] = useState("");
   const [selectedTodo, setSelectedTodo] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
+
+  // Access the current theme mode (dark/light) from ThemeContext
+  const { isDarkMode } = useContext(ThemeContext);
 
   useEffect(() => {
     loadTodos();
@@ -68,7 +72,7 @@ export default function TodoScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { backgroundColor: isDarkMode ? '#121212' : '#FFF' }]}>
       <TodoInput
         newTodo={newTodo}
         setNewTodo={setNewTodo}

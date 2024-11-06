@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { View, Text, FlatList, StyleSheet, SafeAreaView } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
+import { ThemeContext } from '../models/ThemeContext'; // Import ThemeContext for dark mode support
 
 export default function TodoListScreen({ navigation }) {
   const [todos, setTodos] = useState([]);
   const [username, setUsername] = useState("");
+
+  // Access the current theme mode (dark/light) from ThemeContext
+  const { isDarkMode } = useContext(ThemeContext);
 
   // Function to load todos from AsyncStorage
   const loadTodos = async () => {
@@ -28,7 +32,7 @@ export default function TodoListScreen({ navigation }) {
   );
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { backgroundColor: isDarkMode ? '#121212' : '#FFF' }]}>
       {/* Welcome message with username */}
       {username ? (
         <Text style={styles.welcome}>Welcome, {username}!</Text>
